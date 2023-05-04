@@ -26,21 +26,22 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 	switch (result.kind) {
 
 		case SearchableType.Enum:
-
+		{
 			const enumName = result.ident;
-
+	
 			data = (
 				<div className="search-result-data">
 					<Link to={`/enum/${enumName}`}>{enumName}</Link>
 				</div>
 			);
-
+	
 			tagText = 'E';
 			tagColor = '#3498db';
 			break;
+		}
 
 		case SearchableType.Function:
-
+		{
 			const fnName = result.ident;
 
 			data = (
@@ -52,12 +53,13 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 			tagText = 'F';
 			tagColor = '#3498db';
 			break;
+		}
 
 		case SearchableType.ClassMethod:
-
+		{	
 			const className = result.parent;
 			const methodName = result.ident;
-
+	
 			data = (
 				<div className="search-result-data">
 					<Link to={`/class/${className}`}>{className}</Link>::
@@ -66,12 +68,35 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 					</Link>
 				</div>
 			);
-
+	
 			tagText = 'M';
 			tagColor = '#3498db';
 			break;
+		}
+
+		case SearchableType.ClassHook:
+		{
+			
+			const className = result.parent;
+			const hookName = result.ident;
+	
+			data = (
+				<div className="search-result-data">
+					<Link to={`/class/${className}`}>{className}</Link>::
+					<Link to={`/class/${className}/hook/${hookName}`}>
+						{hookName}
+					</Link>
+				</div>
+			);
+		
+			tagText = 'H';
+			tagColor = '#3498db';
+			break;
+		}
+
 
 		case SearchableType.Class:
+		{
 			data = (
 				<div className="search-result-data">
 					<Link to={`/class/${result.ident}`}>{result.ident}</Link>
@@ -81,8 +106,10 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 			tagText = 'C';
 			tagColor = '#27ae60';
 			break;
+		}
 
 		default:
+		{
 			data = (
 				<div className="search-result-data">
 					{result.parent ? `Parent: ${result.parent}` : null}
@@ -92,6 +119,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 			tagText = 'O';
 			tagColor = '#f39c12';
 			break;
+		}
 	}
 
 	return (

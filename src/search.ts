@@ -8,6 +8,7 @@ enum SearchableType
 	Class,
 	ClassMember,
 	ClassMethod,
+	ClassHook,
 	Function,
 	Constant,
 }
@@ -63,6 +64,16 @@ const searchClass = (results: SearchResult[], targetClass: VScriptClass, query: 
 			ident: method.ident,
 			parent: targetClass.ident,
 			kind: SearchableType.ClassMethod
+		});
+	});
+
+	// Search class hooks
+	targetClass.hooks.forEach((hooks: VScriptFunction) => {
+		results.push({
+			score: stringSimilarity.compareTwoStrings(query, hooks.ident),
+			ident: hooks.ident,
+			parent: targetClass.ident,
+			kind: SearchableType.ClassHook
 		});
 	});
 }

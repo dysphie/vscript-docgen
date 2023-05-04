@@ -14,6 +14,7 @@ const PreviewClass = (props: PreviewClassProps) => {
 
 	const [showMethods, setShowMethods] = useState(true);
 	const [showMembers, setShowMembers] = useState(true);
+	const [showHooks, setShowHooks] = useState(true);
 
 	if (!className) {
 		return <div>No classname specified</div>
@@ -26,6 +27,10 @@ const PreviewClass = (props: PreviewClassProps) => {
 
 	function handleMethodsToggle() {
 		setShowMethods(!showMethods);
+	}
+
+	function handleHooksToggle() {
+		setShowHooks(!showHooks);
 	}
 
 	function handleMembersToggle() {
@@ -60,6 +65,22 @@ const PreviewClass = (props: PreviewClassProps) => {
 			})}
 		</ul>
 	</div>
+
+	<div className="hooks">	
+		<h3>Hooks <span>({cls.hooks.length})</span> </h3>
+		<button onClick={handleHooksToggle}>Toggle Hooks</button>
+		<ul style={{ display: showHooks ? 'block' : 'none' }}>
+			{cls.hooks.map(hook => {
+				return <li>
+				<Link to={`/class/${className}/hook/${hook.ident}`}>
+					{hook.ident}
+				</Link>
+				
+			</li>
+			})}
+		</ul>
+	</div>
+
 </div>
 	);
   };

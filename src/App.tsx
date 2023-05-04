@@ -6,6 +6,7 @@ import NotFound from './components/NotFound';
 import PreviewClass from './components/PreviewClass';
 import PreviewEnum from './components/PreviewEnum';
 import PreviewFunc from './components/PreviewFunc';
+import PreviewHook from './components/PreviewHook';
 import PreviewMethod from './components/PreviewMethod';
 import RawInput from './components/RawInput';
 import SearchBar from './components/SearchBar';
@@ -51,6 +52,10 @@ function App() {
 				{
 					path: "class/:className/method/:fnName",
 					element: <PreviewMethod classes={classes} />,
+				},
+				{
+					path: "class/:className/hook/:fnName",
+					element: <PreviewHook classes={classes} />,
 				},
 				{
 					path: "function/:fnName",
