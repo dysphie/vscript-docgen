@@ -1,2 +1,57 @@
+.Home {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 20px;
+	grid-template-areas: "overview content search";
+}
 
+.search {
+	grid-area: search;
+}
 
+.content {
+  grid-area: content;
+}
+
+.overview {
+  grid-area: overview;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.search-result-links {
+	display: inline-block;
+}
+
+.search-result-tag {
+	display: inline-block;
+}
+
+ul {
+	columns: 1;
+	-webkit-columns: 1;
+	-moz-columns: 1;
+}
+
+.search-input {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+  }
+
+  .raw-input {
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Set the height to 100% of the viewport height */
+	padding: 20px; /* Add padding to the sides */
+	box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  textarea {
+	flex-grow: 1;
+	font-size: 18px;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	height: calc(100% - 40px); /* Subtract the top and bottom padding from the available height */
+  }

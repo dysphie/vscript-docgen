@@ -28,13 +28,13 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 		case SearchableType.Enum:
 		{
 			const enumName = result.ident;
-	
+
 			data = (
 				<div className="search-result-data">
 					<Link to={`/enum/${enumName}`}>{enumName}</Link>
 				</div>
 			);
-	
+
 			tagText = 'E';
 			tagColor = '#3498db';
 			break;
@@ -56,10 +56,10 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 		}
 
 		case SearchableType.ClassMethod:
-		{	
+		{
 			const className = result.parent;
 			const methodName = result.ident;
-	
+
 			data = (
 				<div className="search-result-data">
 					<Link to={`/class/${className}`}>{className}</Link>::
@@ -68,7 +68,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 					</Link>
 				</div>
 			);
-	
+
 			tagText = 'M';
 			tagColor = '#3498db';
 			break;
@@ -76,10 +76,10 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 		case SearchableType.ClassHook:
 		{
-			
+
 			const className = result.parent;
 			const hookName = result.ident;
-	
+
 			data = (
 				<div className="search-result-data">
 					<Link to={`/class/${className}`}>{className}</Link>::
@@ -88,7 +88,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 					</Link>
 				</div>
 			);
-		
+
 			tagText = 'H';
 			tagColor = '#3498db';
 			break;
@@ -112,7 +112,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 		{
 			data = (
 				<div className="search-result-data">
-					{result.parent ? `Parent: ${result.parent}` : null}
+					{result.ident} {result.kind} {result.parent}
 				</div>
 			);
 
@@ -125,7 +125,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 	return (
 		<div className="search-result-row">
 			<div className="search-result-info">
-				<span className="search-result-tag">({tagText}) </span><span className="search-result-links">{data}</span>
+				<span className="search-result-tag">({tagText})</span> <span className="search-result-links">{data}</span>
 			</div>
 		</div>
 	);
@@ -134,16 +134,28 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 const SearchResults = ({ results }: SearchResultsProps) => {
 
+	if (results.length === 0) {
+		return null;
+	  }
+
+
 	const sortedResults = results.sort((a, b) => b.score - a.score).slice(0, 20);
-	const rows = sortedResults.map((result) => {
-		return <SearchResultRow key={result.ident} result={result} />;
+
+	console.log(sortedResults);
+
+	// const rows = sortedResults.map((result) => {
+	// 	return <SearchResultRow key={result.ident} result={result} />;
+	// });
+
+	const mappedResults = sortedResults.map((result) => {
+		return <SearchResultRow result={result} />;
 	});
 
 	return (
 		<div>
 			<div>Num results: {sortedResults.length}</div>
 			<div className="resultTable">
-				<div>{rows}</div>
+				<div>{mappedResults}</div>
 			</div>
 		</div>
 	);

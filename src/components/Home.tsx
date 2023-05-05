@@ -4,7 +4,7 @@ import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConsta
 import RawInput from './RawInput';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import './Home.css';
+import Overview from './Overview';
 
 interface HomeProps {
 	searchTerm: string;
@@ -21,7 +21,7 @@ interface HomeProps {
 	setConstants: (constants: Map<string, VScriptConstant>) => void;
 	parsed: boolean;
 	setParsed: (parsed: boolean) => void;
-  }
+}
 
 const Home = (props: HomeProps) => {
 
@@ -39,19 +39,29 @@ const Home = (props: HomeProps) => {
 
 	return (
 		<div className='Home'>
-			<div className="search-column">
-				<SearchBar
-					searchTerm={props.searchTerm}
-					setSearchTerm={props.setSearchTerm}
-					setSearchResults={props.setSearchResults}
-					classes={props.classes}
+			<div className="overview">
+				<Overview
 					functions={props.functions}
 					enums={props.enums}
+					classes={props.classes}
 					constants={props.constants}
 				/>
-				<SearchResults results={props.searchResults}/>
 			</div>
-			<div className="content-column"><Outlet/></div>
+			<div className="content">
+				<Outlet />
+			</div>
+			<div className="search">
+				<SearchBar
+						searchTerm={props.searchTerm}
+						setSearchTerm={props.setSearchTerm}
+						setSearchResults={props.setSearchResults}
+						classes={props.classes}
+						functions={props.functions}
+						enums={props.enums}
+						constants={props.constants}
+				/>
+				<SearchResults results={props.searchResults} />
+			</div>
 		</div>
 	)
 }

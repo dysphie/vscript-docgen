@@ -16,7 +16,14 @@ interface SearchBarProps
 const SearchBar = (props: SearchBarProps) => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
 		props.setSearchTerm(e.target.value);
+
+		if (e.target.value.length < 2)
+		{
+			props.setSearchResults([]);
+			return;
+		}
 
 		let results: SearchResult[] = [];
 
@@ -27,20 +34,17 @@ const SearchBar = (props: SearchBarProps) => {
 		for (let [key, value] of props.functions) {
 			searchFunction(results, value, props.searchTerm);
 		}
-		
+
 		for (let [key, value] of props.enums) {
 			searchEnum(results, value, props.searchTerm);
 		}
-
-		// move filter to arr push logic
-		results.sort((res1, res2) => res2.score - res1.score);
 
 		props.setSearchResults(results);
 	}
 
 	return (
 		<div>
-			<input type="search" onChange={handleChange} value={props.searchTerm}/>
+			<input className='search-input' type="search" onChange={handleChange} value={props.searchTerm}/>
 		</div>
 	)
 }

@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import PreviewClass from './components/PreviewClass';
+import PreviewConst from './components/PreviewConst';
 import PreviewEnum from './components/PreviewEnum';
 import PreviewFunc from './components/PreviewFunc';
 import PreviewHook from './components/PreviewHook';
@@ -60,6 +61,10 @@ function App() {
 				{
 					path: "function/:fnName",
 					element: <PreviewFunc functions={functions} />,
+				},
+				{
+					path: "const/:constName",
+					element: <PreviewConst consts={constants} />,
 				},
 				{
 					path: "enum/:enumName",
