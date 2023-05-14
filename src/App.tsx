@@ -10,7 +10,7 @@ import PreviewFunc from './components/PreviewFunc';
 import PreviewHook from './components/PreviewHook';
 import PreviewMethod from './components/PreviewMethod';
 import RawInput from './components/RawInput';
-import SearchBar from './components/SearchBar';
+import SearchBar from './components/Search';
 import SearchResults from './components/SearchResults';
 import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConstant, VScriptFunctionParam, VScriptClassMember } from './structs';
 

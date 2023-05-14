@@ -1,4 +1,4 @@
-import React, { MouseEvent, ChangeEvent, useState } from 'react';
+import React, { MouseEvent, ChangeEvent, useState, useEffect } from 'react';
 import { parse, SyntaxError } from '../parser/parser';
 import { VScriptClass, VScriptClassMember, VScriptConstant, VScriptEnum, VScriptFunction, VScriptFunctionParam } from '../structs';
 
@@ -11,11 +11,24 @@ interface RawInputProps
 	setParsed: (state: boolean) => void;
 }
 
+interface SavedProject
+{
+	name: string;
+	key: string;
+}
+
+const generateProjectKey = () => {
+	const key = Math.random().toString(36).substring(7);
+	return `project_${key}`;
+};
+
 const RawInput = (props: RawInputProps) => {
 
 	const [rawText, setRawText] = useState("");
 	const [pegOutput, setPegOutput] = useState([]);
 	const [parseError, setParseError] = useState("");
+
+	const [projects, setProjects] = useState<SavedProject[]>([]);
 
 	const pegJsonToMemory = (json: any): void => {
 
@@ -26,7 +39,7 @@ const RawInput = (props: RawInputProps) => {
 
 		// Iterate once to get the classes and enums, we need them first
 		for (const key of Object.keys(json)) {
-			console.log('found key in object keys');
+			//console.log('found key in object keys');
 			const entry = json[key];
 			switch (entry.kind) {
 				case 'class': {
@@ -54,7 +67,7 @@ const RawInput = (props: RawInputProps) => {
 			}
 		}
 
-		console.log("Now get funcs etc");
+		//console.log("Now get funcs etc");
 
 		// Now get functions, constants, and hooks, and populate previously found classes and enums
 		for (const key of Object.keys(json)) {
@@ -137,16 +150,16 @@ const RawInput = (props: RawInputProps) => {
 						description: entry.desc,
 						type: entry.type
 					};
-					
+
 					// FIXME: enum should be a str but it's giving us an array, bad pegjs grammar
 					if (entry.enum) {
 						const enum_ = newEnums.get(entry.enum[0]);
 						if (enum_) {
 							enum_.members.push(constant);
 
-							console.log(`Added ${constant.ident} to enum`);
+							//console.log(`Added ${constant.ident} to enum`);
 						} else {
-							console.log(`Couldn't find enum ${entry.enum[0]} that ${constant.ident} is specifying`);
+							//console.log(`Couldn't find enum ${entry.enum[0]} that ${constant.ident} is specifying`);
 						}
 					} else {
 						newConstants.set(entry.id, constant);
@@ -163,37 +176,75 @@ const RawInput = (props: RawInputProps) => {
 
 		props.setParsed(true);
 
-		console.log(`We ended up with ${newEnums.size} newEnums`);
-		console.log(`We ended up with ${newFunctions.size} newFunctions`);
-		console.log(`We ended up with ${newConstants.size} newConstants`);
-		console.log(`We ended up with ${newClasses.size} newClasses`);
+		//console.log(`We ended up with ${newEnums.size} newEnums`);
+		//console.log(`We ended up with ${newFunctions.size} newFunctions`);
+		//console.log(`We ended up with ${newConstants.size} newConstants`);
+		//console.log(`We ended up with ${newClasses.size} newClasses`);
 	}
 
 	const handleRawInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setRawText(event.target.value);
 	}
 
-	const handleProcessClicked = (event: MouseEvent<HTMLButtonElement>) => {
-
-		try {
-			const parsed = parse(rawText);
-			console.log(parsed);
-			pegJsonToMemory(parsed);
-		} catch (e) {
-			console.log(e);
-			return;
+	useEffect(() => {
+		const storedProjects = localStorage.getItem("projects");
+		console.log(`When the app was loaded we had ${storedProjects} projects`);
+		if (storedProjects) {
+			setProjects(JSON.parse(storedProjects));
 		}
+	}, []);
+
+	const saveProjects = () =>
+	{
+		console.log(`saving ${projects.length} to local => ${JSON.stringify(projects)}`);
+		localStorage.setItem("projects", JSON.stringify(projects));
 	}
+
+
+	const handleParse = (event: MouseEvent<HTMLButtonElement>) => {
+
+		console.log('Before parsing we have ' + projects.length  + 'projects');
+		event.preventDefault();
+		const parsed = parse(rawText);
+
+		const projectKey = generateProjectKey();
+
+		localStorage.setItem(projectKey, JSON.stringify(parsed));
+		//localStorage.setItem(projectKey, 'stub');
+		const newProject: SavedProject = { key: projectKey, name: "Project " + projectKey };
+		setProjects([...projects, newProject]);
+
+
+
+		console.log('After parsing we have ' + projects.length  + 'projects');
+
+
+
+		// pegJsonToMemory(parsed);
+	}
+
+	useEffect(() => {
+		console.log('After parsing async we have ' + projects.length + ' projects');
+
+		if (projects.length > 0) {
+			saveProjects();
+		}
+	  }, [projects]);
 
 	return (
 		<div className="raw-input">
-			<label htmlFor="raw-input">Raw input:</label>
-			<textarea id="raw-input" name="raw-input" onChange={handleRawInputChange}>
-			</textarea>
-			<button onClick={handleProcessClicked}>Parse</button>
-			<p>{parseError}</p>
+		  <label htmlFor="raw-input">Raw input:</label>
+		  <textarea id="raw-input" name="raw-input" onChange={handleRawInputChange}></textarea>
+		  <button onClick={handleParse}>Parse</button>
+		  <p>{parseError}</p>
+		  <div>
+			<h3>Previously Saved Projects: ({projects.length})</h3>
+			{projects.map((project) => (
+			  <div key={project.key}>{project.name}</div>
+			))}
+		  </div>
 		</div>
-	)
+	  );
 
 
 }

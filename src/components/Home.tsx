@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConstant } from '../structs';
 import RawInput from './RawInput';
-import SearchBar from './SearchBar';
+import SearchBar from './Search';
 import SearchResults from './SearchResults';
 import Overview from './Overview';
 
@@ -39,6 +39,15 @@ const Home = (props: HomeProps) => {
 
 	return (
 		<div className='Home'>
+
+<RawInput
+				setClasses={props.setClasses}
+				setFunctions={props.setFunctions}
+				setEnums={props.setEnums}
+				setConstants={props.setConstants}
+				setParsed={props.setParsed}
+			/>
+			
 			<div className="overview">
 				<Overview
 					functions={props.functions}

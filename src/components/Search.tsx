@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { searchClass, searchEnum, searchFunction } from '../search';
 import { SearchResult, VScriptClass, VScriptConstant, VScriptEnum, VScriptFunction } from '../structs';
 
-interface SearchBarProps
+interface SearchProps
 {
 	searchTerm: string;
 	setSearchTerm: (name: string) => void;
@@ -13,7 +13,7 @@ interface SearchBarProps
 	constants: Map<string,VScriptConstant>;
 }
 
-const SearchBar = (props: SearchBarProps) => {
+const Search = (props: SearchProps) => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -49,4 +49,4 @@ const SearchBar = (props: SearchBarProps) => {
 	)
 }
 
-export default SearchBar;
+export default Search;
