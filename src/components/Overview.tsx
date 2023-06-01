@@ -2,41 +2,50 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { VScriptFunction, VScriptEnum, VScriptClass, VScriptConstant } from "../structs";
 
-interface OverviewProps
-{
-	functions: Map<string,VScriptFunction>;
-	enums: Map<string,VScriptEnum>;
-	classes: Map<string,VScriptClass>;
-	constants: Map<string, VScriptConstant>;
+interface OverviewProps {
+  functions: Map<string, VScriptFunction>;
+  enums: Map<string, VScriptEnum>;
+  classes: Map<string, VScriptClass>;
+  constants: Map<string, VScriptConstant>;
+  projectName: string;
 }
 
 const Overview = (props: OverviewProps) => {
+
+  const {
+    functions,
+    enums,
+    classes,
+    constants,
+    projectName
+  }: OverviewProps = props;
+
   const [classCollapsed, setClassCollapsed] = useState(false);
   const [enumCollapsed, setEnumCollapsed] = useState(false);
   const [funcCollapsed, setFuncCollapsed] = useState(false);
   const [constantCollapsed, setConstantCollapsed] = useState(false);
 
-  const functionDivs = Array.from(props.functions.values()).map((func) => (
+  const functionDivs = Array.from(functions.values()).map((func) => (
     <li key={func.ident}>
-      <Link to={`/function/${func.ident}`}>{func.ident}</Link>
+      <Link to={`function/${func.ident}`}>{func.ident}</Link>
     </li>
   ));
 
-  const enumDivs = Array.from(props.enums.values()).map((enumObj) => (
+  const enumDivs = Array.from(enums.values()).map((enumObj) => (
     <li key={enumObj.ident}>
-      <Link to={`/enum/${enumObj.ident}`}>{enumObj.ident}</Link>
+      <Link to={`enum/${enumObj.ident}`}>{enumObj.ident}</Link>
     </li>
   ));
 
-  const classDivs = Array.from(props.classes.values()).map((cls) => (
+  const classDivs = Array.from(classes.values()).map((cls) => (
     <li key={cls.ident}>
-      <Link to={`/class/${cls.ident}`}>{cls.ident}</Link>
+      <Link to={`class/${cls.ident}`}>{cls.ident}</Link>
     </li>
   ));
 
-  const constantDivs = Array.from(props.constants.values()).map((constant) => (
+  const constantDivs = Array.from(constants.values()).map((constant) => (
     <li key={constant.ident}>
-      <Link to={`/const/${constant.ident}`}>{constant.ident}</Link>
+      <Link to={`const/${constant.ident}`}>{constant.ident}</Link>
     </li>
   ));
 

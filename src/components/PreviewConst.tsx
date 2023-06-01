@@ -6,6 +6,7 @@ import { VScriptClass, VScriptConstant, VScriptEnum, VScriptFunction } from '../
 interface PreviewConstProps
 {
 	consts: Map<string, VScriptConstant>;
+	projectName: string;
 }
 
 const PreviewConst = (props: PreviewConstProps) => {

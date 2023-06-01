@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { searchClass, searchEnum, searchFunction } from '../search';
 import { SearchResult, VScriptClass, VScriptConstant, VScriptEnum, VScriptFunction } from '../structs';
 
-interface SearchProps
-{
+interface SearchProps {
 	searchTerm: string;
 	setSearchTerm: (name: string) => void;
 	setSearchResults: (results: SearchResult[]) => void;
-	classes: Map<string,VScriptClass>;
-	functions: Map<string,VScriptFunction>;
-	enums: Map<string,VScriptEnum>;
-	constants: Map<string,VScriptConstant>;
+	classes: Map<string, VScriptClass>;
+	functions: Map<string, VScriptFunction>;
+	enums: Map<string, VScriptEnum>;
+	constants: Map<string, VScriptConstant>;
 }
 
 const Search = (props: SearchProps) => {
@@ -19,8 +18,7 @@ const Search = (props: SearchProps) => {
 
 		props.setSearchTerm(e.target.value);
 
-		if (e.target.value.length < 2)
-		{
+		if (e.target.value.length < 2) {
 			props.setSearchResults([]);
 			return;
 		}
@@ -44,7 +42,7 @@ const Search = (props: SearchProps) => {
 
 	return (
 		<div>
-			<input className='search-input' type="search" onChange={handleChange} value={props.searchTerm}/>
+			<input className='search-input' type="search" onChange={handleChange} value={props.searchTerm} />
 		</div>
 	)
 }

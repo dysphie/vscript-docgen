@@ -31,7 +31,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 			data = (
 				<div className="search-result-data">
-					<Link to={`/enum/${enumName}`}>{enumName}</Link>
+					<Link to={`enum/${enumName}`}>{enumName}</Link>
 				</div>
 			);
 
@@ -46,7 +46,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 			data = (
 				<div className="search-result-data">
-					<Link to={`/function/${fnName}`}>{fnName}</Link>
+					<Link to={`function/${fnName}`}>{fnName}</Link>
 				</div>
 			);
 
@@ -62,8 +62,8 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 			data = (
 				<div className="search-result-data">
-					<Link to={`/class/${className}`}>{className}</Link>::
-					<Link to={`/class/${className}/method/${methodName}`}>
+					<Link to={`class/${className}`}>{className}</Link>::
+					<Link to={`class/${className}/method/${methodName}`}>
 						{methodName}
 					</Link>
 				</div>
@@ -82,8 +82,8 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 
 			data = (
 				<div className="search-result-data">
-					<Link to={`/class/${className}`}>{className}</Link>::
-					<Link to={`/class/${className}/hook/${hookName}`}>
+					<Link to={`class/${className}`}>{className}</Link>::
+					<Link to={`class/${className}/hook/${hookName}`}>
 						{hookName}
 					</Link>
 				</div>
@@ -99,7 +99,7 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 		{
 			data = (
 				<div className="search-result-data">
-					<Link to={`/class/${result.ident}`}>{result.ident}</Link>
+					<Link to={`class/${result.ident}`}>{result.ident}</Link>
 				</div>
 			);
 
