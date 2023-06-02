@@ -3,6 +3,8 @@ import { SavedProject } from '../App';
 import { parse, SyntaxError } from '../parser/parser';
 import { VScriptClass, VScriptClassMember, VScriptConstant, VScriptEnum, VScriptFunction, VScriptFunctionParam } from '../structs';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface ProjectSelectorProps {
 	projects: SavedProject[];
@@ -57,8 +59,39 @@ const ProjectSelector = (props: ProjectSelectorProps) => {
 	}, [projects, saveProjects]);
 
 	return (
-		<div className="raw-input">
-			<label htmlFor="raw-input">Raw input:</label>
+		<div className="project-selector">
+			<h1>Choose your project</h1>
+			<div className="projects-list">
+
+				<button className="project-preview">
+					<img src="https://cdn.akamai.steamstatic.com/steam/apps/224260/header.jpg" alt="" />
+					<div className="project-info">
+						<h3>NMRiH</h3>
+						<p>Updated on 2023-04-07</p>
+					</div>
+				</button>
+
+				<button className="project-preview">
+					<img src="https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg" alt="" />
+					<div className="project-info">
+						<h3>TF2</h3>
+						<p>Updated on 2023-04-07</p>
+					</div>
+				</button>
+
+				<button className="project-preview">
+					<img src="https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg" alt="" />
+					<div className="project-info">
+						<h3>CSGO</h3>
+						<p>Updated on 2023-04-07</p>
+					</div>
+				</button>
+
+				<div className="project-preview project-add-new">
+					<FontAwesomeIcon icon={faPlusCircle} />
+				</div>
+			</div>
+			{/* <label htmlFor="raw-input">Raw input:</label>
 			<textarea id="raw-input" name="raw-input" onChange={handleProjectSelectorChange}></textarea>
 			<button onClick={handleParse}>Parse</button>
 			<p>{parseError}</p>
@@ -67,7 +100,7 @@ const ProjectSelector = (props: ProjectSelectorProps) => {
 				{projects.map((project) => (
 					<Link to={project.key}>{project.name}</Link>
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 }
