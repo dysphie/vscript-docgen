@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConstant, VScriptClassMember, VScriptFunctionParam } from '../structs';
 import SearchBar from './Search';
 import SearchResults from './SearchResults';
@@ -214,7 +214,11 @@ const Home = (props: HomeProps) => {
 	}
 
 	return (
-		<div className='Home'>
+		<div className='home'>
+			<header>
+				<h3 className="logo"><Link to='/'>VScript Logo</Link></h3>
+				{/* <button className="fake-search-bar">Search docs</button> */}
+			</header>
 			<div className="overview">
 				<Overview
 					functions={props.functions}

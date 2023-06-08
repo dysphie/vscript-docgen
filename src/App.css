@@ -1,8 +1,9 @@
-.Home {
+.home {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 20px;
-	grid-template-areas: "overview content search";
+	grid-template-areas: "header header header"
+						 "overview content search";
 }
 
 .search {

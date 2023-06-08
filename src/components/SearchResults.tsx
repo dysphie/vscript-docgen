@@ -108,6 +108,19 @@ const SearchResultRow = ({ result }: SearchResultRowProps) => {
 			break;
 		}
 
+		case SearchableType.EnumMember:
+		{
+			data = (
+				<div className="search-result-data">
+					<Link to={`enum/${result.parent}`}>{result.parent}.{result.ident}</Link>
+				</div>
+			);
+
+			tagText = 'EM';
+			tagColor = '#27ae60';
+			break;
+		}
+
 		default:
 		{
 			data = (

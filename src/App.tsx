@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, createBrowserRouter, Link, Outlet, Route, RouterProvider, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
-import NotFound from './components/NotFound';
 import PreviewClass from './components/PreviewClass';
 import PreviewConst from './components/PreviewConst';
 import PreviewEnum from './components/PreviewEnum';
@@ -10,9 +9,7 @@ import PreviewFunc from './components/PreviewFunc';
 import PreviewHook from './components/PreviewHook';
 import PreviewMethod from './components/PreviewMethod';
 import ProjectSelector from './components/ProjectSelector';
-import SearchBar from './components/Search';
-import SearchResults from './components/SearchResults';
-import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConstant, VScriptFunctionParam, VScriptClassMember } from './structs';
+import { SearchResult, VScriptClass, VScriptFunction, VScriptEnum, VScriptConstant } from './structs';
 
 export interface SavedProject {
 	name: string;
