@@ -1,4 +1,4 @@
-.home {
+.Home {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 20px;
@@ -56,3 +56,40 @@ ul {
 	box-sizing: border-box;
 	height: calc(100% - 40px); /* Subtract the top and bottom padding from the available height */
   }
+
+.projects-list
+{
+	display: flex;
+	gap: 20px;
+}
+
+.project-preview
+{
+	background-color: white;
+	border-radius: 1em;
+	background-size: cover;
+	overflow: hidden;
+	border: none;
+	cursor: pointer;
+	width: 250px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.project-info
+{
+	margin: 1em;
+}
+
+.project-preview img
+{
+	max-height: 150px;
+
+	max-width: 250px;
+	height: auto;
+}
+
+.project-add-new {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}

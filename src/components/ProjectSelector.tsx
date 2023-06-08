@@ -3,6 +3,8 @@ import { SavedProject } from '../App';
 import { parse, SyntaxError } from '../parser/parser';
 import { VScriptClass, VScriptClassMember, VScriptConstant, VScriptEnum, VScriptFunction, VScriptFunctionParam } from '../structs';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface ProjectSelectorProps {
 	projects: SavedProject[];
